@@ -319,8 +319,8 @@ app.put('/scheme',(req,res)=>scheme.reviseScheme(req,res,db))//修改方案
 app.delete('/scheme',(req,res)=>scheme.deleteScheme(req,res,db))//修改方案
    
 
-app.listen(3001,()=>{   
-    console.log('app is running on 3001');
+app.listen(process.env.PORT || 3001,()=>{   
+    console.log(`app is running on ${process.env.PORT}`);
 })
 
 
