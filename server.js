@@ -7,7 +7,7 @@ const knex = require('knex');
 const register =require('./controllders/register');
 const signin =require('./controllders/signin');
 const scheme = require('./controllders/scheme');
-
+NODE_TLS_REJECT_UNAUTHORIZED='0'
 const db=knex({
     client:'pg',
     connection: {
