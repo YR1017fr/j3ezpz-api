@@ -8,6 +8,7 @@ const register =require('./controllders/register');
 const signin =require('./controllders/signin');
 const scheme = require('./controllders/scheme');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const db=knex({
     client:'pg',
     connection:{
@@ -42,7 +43,7 @@ app.delete('/scheme',(req,res)=>scheme.deleteScheme(req,res,db))//修改方案
    
 
 app.listen(process.env.PORT || 3001,()=>{   
-    console.log(`app is running on ${process.env.PORT}`);
+    console.log(`app is running on ${process.env.PORT || 3001}`);
 })
 
 
