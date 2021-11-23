@@ -11,10 +11,8 @@ const scheme = require('./controllders/scheme');
 const db=knex({
     client:'pg',
     connection:{
-        host:'127.0.0.1',
-        user:'postgres',
-        password:'alex134679852',
-        database:'j3pz'
+        host:process.env.DATABASE_URL,
+        ssl:true,
     }
 });
 
