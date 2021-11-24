@@ -1,23 +1,31 @@
 const handleRegister = (req,res,bcrypt,db) =>{
     const {email,name,password}=req.body;
+    let password ='';
     if(!email||!name||!password){
         return res.status(400).json('incorrect form subnission')
     }
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-            db('login')
+            password = hash;
+        });
+    })
+    db('login')
             .returning(['id','name','email'])
             .insert({
                 email:email,
                 name:name,
-                password:hash,
+                password:password,
             }).then((user)=>{
-                    return res.json(user[0]);
+                try {
+                    if(!user.id)
+                    throw("repeat email");
+                }catch (e) {
+                    res.json(e);
+                }
+                return res.json(user[0]);
             }).catch((err)=>{
                 console.log(err);
             })
-        });
-    })
     return res.json('repeat email');
 }
 
