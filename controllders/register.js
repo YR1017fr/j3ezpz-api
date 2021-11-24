@@ -19,9 +19,9 @@ const handleRegister = (req,res,bcrypt,db) =>{
                     return res.json('repeat email')
                 })
         });
-    }).then(()=>{
-        res.json((user[0]));
-    });
+    })
+    res.json((user[0]));
+
 }
 
 module.exports={
