@@ -5,15 +5,12 @@ const handleRegister = (req,res,bcrypt,db) =>{
     }
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-            password = hash;
-        });
-    })
-    db('login')
+            db('login')
             .returning(['id','name','email'])
             .insert({
                 email:email,
                 name:name,
-                password:password,
+                password:hash,
             }).then((user)=>{
                 try {
                     if(!user.id)
@@ -25,6 +22,9 @@ const handleRegister = (req,res,bcrypt,db) =>{
             }).catch((err)=>{
                 console.log(err);
             })
+        });
+    })
+   
 }
 
 module.exports={
