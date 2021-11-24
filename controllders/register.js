@@ -20,7 +20,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                 })
         });
     })
-    res.json((user[0]));
+    res.json(data);
 
 }
 
