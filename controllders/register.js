@@ -10,6 +10,7 @@ const handleRegister = async function(req,res,bcrypt,db) {
             pass=hash;
         });
     })
+    console.log(pass);
     db('login')
     .returning(['id','name','email'])
     .insert({
