@@ -19,6 +19,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                 })
         });
     })
+    console.log(data)
     if(data.email){
         res.json(data);
     }else{
