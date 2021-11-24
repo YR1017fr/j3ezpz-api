@@ -138,7 +138,8 @@ const loadSchemeDetail =async function (req,res,db){
     if(state){
       res.json(scheme)
     }else{
-      res.json('fail')
+      // res.json('fail')
+      res.json(scheme)
     }
 }
 
@@ -236,52 +237,42 @@ const reviseScheme =async function  (req,res,db){
 
 const deleteScheme =async function  (req,res,db){
   const {id,no} = req.query;
-  let state = true;
-  await db('scheme_base')
+  db('scheme_base')
   .where({
     id:id,
     no:no
   })
   .del()
   .catch((err) => {
-    state=false;
     console.log('base',err)
   })
-  await db('scheme_haswear')
+  db('scheme_haswear')
   .where({
     id:id,
     no:no
   })
   .del()
   .catch((err) => {
-    state=false;
     console.log('haswear',err)
   })
-  await db('scheme_enchanting')
+  db('scheme_enchanting')
   .where({
     id:id,
     no:no
   })
   .del()
   .catch((err) => {
-    state=false;
     console.log('enchanting',err)
   })
-  await db('scheme_suiteffect')
+  db('scheme_suiteffect')
   .where({
     id:id,
     no:no
   })
   .del()
   .catch((err) => {
-    state=false;
     console.log('suiteffect',err)
   })
-  if(state){
-    res.json('sucess');
-  }else{
-    res.json('fail');
-  }
 }
 
 
