@@ -23,6 +23,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
             }).catch((err)=>{
                 console.log(err);
             })
+            res.json("repeat email")
         });
     })
    
