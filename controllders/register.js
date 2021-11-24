@@ -12,12 +12,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                 name:name,
                 password:hash,
             }).then((user)=>{
-                if(user[0].email){
                     res.json(user[0]);
-                }else{
-                    res.status(400).json('repeat email');
-                }
-                
             }).catch((err)=>{
                 console.log(err);
             })
