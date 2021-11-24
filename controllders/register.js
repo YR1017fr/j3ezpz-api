@@ -14,13 +14,17 @@ const handleRegister = (req,res,bcrypt,db) =>{
                     password:hash,
                 }).then((user)=>{
                     data=user[0];
-                    
                 }).catch((err)=>{
-                    return res.json('repeat email')
+                    console.log(err);
                 })
         });
     })
-    res.json(data);
+    if(data.email){
+        res.json(data);
+    }else{
+        res.json('repeat email');
+    }
+
 
 }
 
