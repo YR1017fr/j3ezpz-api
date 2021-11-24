@@ -17,7 +17,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                     if(!user.id)
                     throw("repeat email");
                 }catch (e) {
-                    res.json(e);
+                    res.status.json(e);
                 }
                 return res.json(user[0]);
             }).catch((err)=>{
