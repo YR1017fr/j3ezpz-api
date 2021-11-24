@@ -12,6 +12,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                 name:name,
                 password:hash,
             }).then((user)=>{
+                console.log(Boolean(user.id));
                 try {
                     if(!user.id)
                     throw("repeat email");
