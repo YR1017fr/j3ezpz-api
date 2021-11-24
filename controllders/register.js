@@ -1,5 +1,6 @@
 const handleRegister = (req,res,bcrypt,db) =>{
     const {email,name,password}=req.body;
+    let data={};
     if(!email||!name||!password){
         return res.status(400).json('incorrect form subnission')
     }
@@ -12,11 +13,14 @@ const handleRegister = (req,res,bcrypt,db) =>{
                     name:name,
                     password:hash,
                 }).then((user)=>{
-                    res.json((user[0]))
+                    data=user[0];
+                    
                 }).catch((err)=>{
                     console.log(err);
                 })
         });
+    }).then(()=>{
+        res.json((user[0]));
     });
 }
 
