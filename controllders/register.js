@@ -16,7 +16,8 @@ const handleRegister = (req,res,bcrypt,db) =>{
                 return res.json(user[0]);
             }).catch((err)=>{
                 state = false ;
-                console.log(err);
+                // console.log(err);
+                console.log(state,'error')
             })
             console.log(state);
             if(!state){
