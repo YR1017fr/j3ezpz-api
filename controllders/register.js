@@ -20,6 +20,7 @@ const handleRegister = async function(req,res,bcrypt,db) {
             })
         });
     })
+    console.log(state);
     if(!state){
         res.status(400).json("repeat email")
     }
