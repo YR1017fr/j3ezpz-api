@@ -13,6 +13,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
                     name:name,
                     password:hash,
                 }).then((user)=>{
+                    console.log(user)
                     data=user[0];
                 }).catch((err)=>{
                     console.log(err);
