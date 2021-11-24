@@ -20,7 +20,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
             })
             console.log(state);
             if(!state){
-                res.staus(400).json("repeat email")
+                res.status(400).json("repeat email")
             }
         });
     })
