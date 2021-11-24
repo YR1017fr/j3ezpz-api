@@ -1,6 +1,5 @@
 const handleRegister = (req,res,bcrypt,db) =>{
     const {email,name,password}=req.body;
-    let password ='';
     if(!email||!name||!password){
         return res.status(400).json('incorrect form subnission')
     }
@@ -26,7 +25,6 @@ const handleRegister = (req,res,bcrypt,db) =>{
             }).catch((err)=>{
                 console.log(err);
             })
-    return res.json('repeat email');
 }
 
 module.exports={
