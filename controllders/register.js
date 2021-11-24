@@ -22,7 +22,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
     if(data.email){
         res.json(data);
     }else{
-        res.statue(400).json('repeat email');
+        res.status(400).json('repeat email');
     }
 
 
