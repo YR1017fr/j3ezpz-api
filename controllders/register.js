@@ -6,7 +6,7 @@ const handleRegister = (req,res,bcrypt,db) =>{
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
             db('login')
-            .returning('*')
+            .returning(['id','name','email'])
             .insert({
                 email:email,
                 name:name,
