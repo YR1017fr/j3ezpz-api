@@ -4,9 +4,9 @@ const handleRegister = async function(req,res,bcrypt,db) {
     if(!email||!name||!password){
         return res.status(400).json('incorrect form subnission')
     }
-    bcrypt.genSalt(10, function(err, salt) {
+    await bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-            await db('login')
+             db('login')
             .returning(['id','name','email'])
             .insert({
                 email:email,
@@ -18,12 +18,11 @@ const handleRegister = async function(req,res,bcrypt,db) {
                 state = false ;
                 console.log(err);
             })
-            if(!state){
-                res.status(400).json("repeat email")
-            }
         });
     })
-   
+    if(!state){
+        res.status(400).json("repeat email")
+    }
 }
 
 module.exports={
