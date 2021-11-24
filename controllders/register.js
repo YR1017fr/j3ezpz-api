@@ -18,8 +18,9 @@ const handleRegister = (req,res,bcrypt,db) =>{
             }).catch((err)=>{
                 console.log(err);
             })
+            console.log(state);
             if(!state){
-                res.json("repeat email")
+                res.staus(400).json("repeat email")
             }
         });
     })
