@@ -1,14 +1,15 @@
 const handleRegister = async function(req,res,bcrypt,db) {
     const {email,name,password}=req.body;
-    let pass = '';
+    
     // let state = true ;
     if(!email||!name||!password){
         return res.status(400).json('incorrect form subnission')
     }
-    await bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(password, salt, function(err, hash) {
-            pass=hash;
+    let pass = bcrypt.genSalt(10, function(err, salt) {
+        let pass = bcrypt.hash(password, salt, function(err, hash) {
+            return hash;
         });
+        return pass ;
     })
     console.log(pass,"密碼");
     db('login')
