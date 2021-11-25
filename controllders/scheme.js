@@ -235,7 +235,7 @@ const reviseScheme =async function  (req,res,db){
   }
 }
 
-const deleteScheme =async function  (req,res,db){
+const deleteScheme = (req,res,db) => {
   const {id,no} = req.query;
   db('scheme_base')
   .where({
@@ -244,7 +244,7 @@ const deleteScheme =async function  (req,res,db){
   })
   .del()
   .catch((err) => {
-    console.log('base',err)
+    console.log('base',err);
   })
   db('scheme_haswear')
   .where({
@@ -253,7 +253,7 @@ const deleteScheme =async function  (req,res,db){
   })
   .del()
   .catch((err) => {
-    console.log('haswear',err)
+    console.log('haswear',err);
   })
   db('scheme_enchanting')
   .where({
@@ -262,7 +262,7 @@ const deleteScheme =async function  (req,res,db){
   })
   .del()
   .catch((err) => {
-    console.log('enchanting',err)
+    console.log('enchanting',err);
   })
   db('scheme_suiteffect')
   .where({
@@ -271,8 +271,9 @@ const deleteScheme =async function  (req,res,db){
   })
   .del()
   .catch((err) => {
-    console.log('suiteffect',err)
+    console.log('suiteffect',err);
   })
+  res.json('work');
 }
 
 
