@@ -19,6 +19,7 @@ const handleRegister = async function(req,res,bcrypt,db) {
         name:name,
         password:pass,
     }).then((user)=>{
+        console.log('work')
         return res.json(user[0]);
     }).catch((err)=>{
         console.log(err);
