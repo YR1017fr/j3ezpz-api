@@ -1,4 +1,4 @@
-const saveScheme =async function  (req,res,db){
+const saveScheme = async function  (req,res,db){
   console.log('work')
   const {id} = req.params;
   const {base,haswear,suiteffect,enchanting}=req.body;
@@ -79,7 +79,7 @@ const saveScheme =async function  (req,res,db){
   }
 }
 
-const loadSchemeDetail =async function (req,res,db){
+const loadSchemeDetail = async function (req,res,db){
     const {id,no} = req.query;
     let scheme={
         profession:'',
@@ -101,7 +101,6 @@ const loadSchemeDetail =async function (req,res,db){
       state=false;
       console.log(err)
     })
-
     await db.where({
       id:id,
       no:no,
@@ -143,9 +142,9 @@ const loadSchemeDetail =async function (req,res,db){
     }
 }
 
-const reviseScheme =async function  (req,res,db){
+const reviseScheme = async function  (req,res,db){
   const {id,no} = req.query;
-  const {base,haswear,suiteffect,enchanting}=req.body;
+  const {base,haswear,suiteffect,enchanting} = req.body;
   let state = true;
   await db('scheme_base')
   .where({
@@ -154,12 +153,12 @@ const reviseScheme =async function  (req,res,db){
   })
   .update({
     id:id,
-    schemename:base.schemename,
-    profession:base.profession,
-    secondprofession:base.secondprofession,
-    stone:base.stone
+    schemename : base.schemename,
+    profession : base.profession,
+    secondprofession : base.secondprofession,
+    stone : base.stone
   }).catch((err) => {
-    state=false;
+    state = false;
     console.log('base',err)
   })
   await db('scheme_haswear')
@@ -168,22 +167,22 @@ const reviseScheme =async function  (req,res,db){
     no:no
   })
   .update({
-    id:id,
-    no:no,
-    weapon:haswear.weapon,
-    hiddenweapon:haswear.hiddenweapon,
-    cap:haswear.cap,
-    clothing:haswear.clothing,
+    id : id,
+    no : no,
+    weapon : haswear.weapon,
+    hiddenweapon : haswear.hiddenweapon,
+    cap : haswear.cap,
+    clothing : haswear.clothing,
     belt:haswear.belt,
-    bracer:haswear.bracer,
-    pants:haswear.pants,
-    shoe:haswear.shoe,
-    necklace:haswear.necklace,
-    bellychain:haswear.bellychain,
-    ringa:haswear.ringa,
-    ringb:haswear.ringb,
+    bracer : haswear.bracer,
+    pants : haswear.pants,
+    shoe : haswear.shoe,
+    necklace : haswear.necklace,
+    bellychain : haswear.bellychain,
+    ringa : haswear.ringa,
+    ringb : haswear.ringb,
   }).catch((err) => {
-    state=false;
+    state = false;
     console.log('haswear',err)
   })
   await db('scheme_enchanting')
@@ -192,22 +191,22 @@ const reviseScheme =async function  (req,res,db){
     no:no
   })
   .update({
-    id:id,
-    no:no,
-    weapon:enchanting.weapon,
-    hiddenweapon:enchanting.hiddenweapon,
-    cap:enchanting.cap,
-    clothing:enchanting.clothing,
-    belt:enchanting.belt,
-    bracer:enchanting.bracer,
-    pants:enchanting.pants,
-    shoe:enchanting.shoe,
-    necklace:enchanting.necklace,
-    bellychain:enchanting.bellychain,
-    ringa:enchanting.ringa,
-    ringb:enchanting.ringb,
+    id : id,
+    no : no,
+    weapon : enchanting.weapon,
+    hiddenweapon : enchanting.hiddenweapon,
+    cap : enchanting.cap,
+    clothing : enchanting.clothing,
+    belt : enchanting.belt,
+    bracer : enchanting.bracer,
+    pants : enchanting.pants,
+    shoe : enchanting.shoe,
+    necklace : enchanting.necklace,
+    bellychain : enchanting.bellychain,
+    ringa : enchanting.ringa,
+    ringb : enchanting.ringb,
   }).catch((err) => {
-    state=false;
+    state = false;
     console.log('enchanting',err)
   })
   await db('scheme_suiteffect')
@@ -216,16 +215,16 @@ const reviseScheme =async function  (req,res,db){
     no:no
   })
   .update({
-    id:id,
-    no:no,
-    JJC2:suiteffect.JJC2,
-    JJC4:suiteffect.JJC4,
-    戰階2:suiteffect.戰階2,
-    戰階4:suiteffect.戰階4,
-    飾品2:suiteffect.飾品2,
-    飾品3:suiteffect.飾品3
+    id : id,
+    no : no,
+    JJC2 : suiteffect.JJC2,
+    JJC4 : suiteffect.JJC4,
+    戰階2 : suiteffect.戰階2,
+    戰階4 : suiteffect.戰階4,
+    飾品2 : suiteffect.飾品2,
+    飾品3 : suiteffect.飾品3
   }).catch((err) => {
-    state=false;
+    state = false;
     console.log('suiteffect',err)
   })
   if(state){
@@ -239,8 +238,8 @@ const deleteScheme = (req,res,db) => {
   const {id,no} = req.query;
   db('scheme_base')
   .where({
-    id:id,
-    no:no
+    id : id,
+    no : no
   })
   .del()
   .catch((err) => {
@@ -248,8 +247,8 @@ const deleteScheme = (req,res,db) => {
   })
   db('scheme_haswear')
   .where({
-    id:id,
-    no:no
+    id : id,
+    no : no
   })
   .del()
   .catch((err) => {
@@ -257,8 +256,8 @@ const deleteScheme = (req,res,db) => {
   })
   db('scheme_enchanting')
   .where({
-    id:id,
-    no:no
+    id : id,
+    no : no
   })
   .del()
   .catch((err) => {
@@ -266,8 +265,8 @@ const deleteScheme = (req,res,db) => {
   })
   db('scheme_suiteffect')
   .where({
-    id:id,
-    no:no
+    id : id,
+    no : no
   })
   .del()
   .catch((err) => {
