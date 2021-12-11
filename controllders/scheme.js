@@ -1,4 +1,4 @@
-const saveScheme = async function  (req,res,db){
+const saveScheme = async function  (req, res, db){
   console.log('work')
   const {id} = req.params;
   const {base,haswear,suiteffect,enchanting}=req.body;
@@ -7,21 +7,21 @@ const saveScheme = async function  (req,res,db){
   await db('scheme_base')
   .returning('no')
   .insert({
-    id:id,
+    id,
     schemename:base.schemename,
     profession:base.profession,
     secondprofession:base.secondprofession,
     stone:base.stone
   }).then((result) => {
     no = result[0]
-  }).catch((err) => {
+  }).catch(err =>{
     state = false;
     console.log(err);
   })
   await db('scheme_haswear')
   .insert({
-    id:id,
-    no:no,
+    id,
+    no,
     weapon:haswear.weapon,
     hiddenweapon:haswear.hiddenweapon,
     cap:haswear.cap,
@@ -34,14 +34,14 @@ const saveScheme = async function  (req,res,db){
     bellychain:haswear.bellychain,
     ringa:haswear.ringa,
     ringb:haswear.ringb,
-  }).catch((err) => {
+  }).catch(err => {
     state = false;
     console.log(err);
   })
   await db('scheme_enchanting')
   .insert({
-    id:id,
-    no:no,
+    id,
+    no,
     weapon:enchanting.weapon,
     hiddenweapon:enchanting.hiddenweapon,
     cap:enchanting.cap,
@@ -54,34 +54,34 @@ const saveScheme = async function  (req,res,db){
     bellychain:enchanting.bellychain,
     ringa:enchanting.ringa,
     ringb:enchanting.ringb,
-  }).catch((err) => {
+  }).catch(err =>{
     state = false;
     console.log(err);
   })
   await db('scheme_suiteffect')
   .insert({
-    id:id,
-    no:no,
+    id,
+    no,
     JJC2:suiteffect.JJC2,
     JJC4:suiteffect.JJC4,
     戰階2:suiteffect.戰階2,
     戰階4:suiteffect.戰階4,
     飾品2:suiteffect.飾品2,
     飾品3:suiteffect.飾品3
-  }).catch((err) => {
+  }).catch(err =>{
     state = false;
     console.log(err);
   })
   if(state){
     res.json('sucess');
   }else{
-    res.json('fail')
+    res.json('fail');
   }
 }
 
-const loadSchemeDetail = async function (req,res,db){
+const loadSchemeDetail = async function (req, res, db){
     const {id,no} = req.query;
-    let scheme={
+    let scheme = {
         profession:'',
         secondprofession:'',
         haswear:{},
@@ -90,85 +90,70 @@ const loadSchemeDetail = async function (req,res,db){
         stone:''
     }
     let state = true;
-    await db.where({
-      id:id,
-      no:no,
-    }).select('profession','secondprofession','stone').from('scheme_base')
-    .then(data=>{
+    await db.where({id,no,})
+    .select('profession','secondprofession','stone').from('scheme_base')
+    .then(data =>{
       Object.assign(scheme,data[0])
     })
-    .catch((err)=>{
-      state=false;
-      console.log(err)
+    .catch(err =>{
+      state = false;
+      console.log(err);
     })
-    await db.where({
-      id:id,
-      no:no,
-    }).select('weapon','hiddenweapon','cap','clothing','belt','bracer','pants','shoe','necklace','bellychain','ringa','ringb').from('scheme_haswear')
-    .then(data=>{
-      scheme.haswear=data[0];
+    await db.where({id,no,})
+    .select('weapon','hiddenweapon','cap','clothing','belt','bracer','pants','shoe','necklace','bellychain','ringa','ringb').from('scheme_haswear')
+    .then(data =>{
+      scheme.haswear = data[0];
     })
-    .catch((err)=>{
-      state=false;
-      console.log(err)
+    .catch(err =>{
+      state = false;
+      console.log(err);
     })
-    await db.where({
-      id:id,
-      no:no,
-    }).select('weapon','hiddenweapon','cap','clothing','belt','bracer','pants','shoe','necklace','bellychain','ringa','ringb').from('scheme_enchanting')
-    .then(data=>{
-      scheme.enchanting=data[0];
+    await db.where({id,no,})
+    .select('weapon','hiddenweapon','cap','clothing','belt','bracer','pants','shoe','necklace','bellychain','ringa','ringb').from('scheme_enchanting')
+    .then(data =>{
+      scheme.enchanting = data[0];
     })
-    .catch((err)=>{
-      state=false;
-      console.log(err)
+    .catch(err =>{
+      state = false;
+      console.log(err);
     })
-    await db.where({
-      id:id,
-      no:no,
-    }).select('JJC2','JJC4','戰階2','戰階4','飾品2','飾品3').from('scheme_suiteffect')
-    .then(data=>{
-      scheme.suiteffect=data[0];
+    await db.where({id,no,})
+    .select('JJC2','JJC4','戰階2','戰階4','飾品2','飾品3').from('scheme_suiteffect')
+    .then(data =>{
+      scheme.suiteffect = data[0];
     })
-    .catch((err)=>{
-      state=false;
-      console.log(err)
+    .catch(err =>{
+      state = false;
+      console.log(err);
     })
     if(state){
       res.json(scheme)
     }else{
-      // res.json('fail')
-      res.json(scheme)
+      res.json('fail');
     }
 }
 
-const reviseScheme = async function  (req,res,db){
-  const {id,no} = req.query;
-  const {base,haswear,suiteffect,enchanting} = req.body;
+const reviseScheme = async function  (req, res, db){
+  const {id, no} = req.query;
+  const {base, haswear, suiteffect, enchanting} = req.body;
   let state = true;
   await db('scheme_base')
-  .where({
-    id:id,
-    no:no
-  })
+  .where({id,no})
   .update({
-    id:id,
+    id,
     schemename : base.schemename,
     profession : base.profession,
     secondprofession : base.secondprofession,
     stone : base.stone
-  }).catch((err) => {
+  }).catch(err => {
     state = false;
-    console.log('base',err)
+    console.log('base',err);
   })
   await db('scheme_haswear')
-  .where({
-    id:id,
-    no:no
-  })
+  .where({id,no})
   .update({
-    id : id,
-    no : no,
+    id,
+    no,
     weapon : haswear.weapon,
     hiddenweapon : haswear.hiddenweapon,
     cap : haswear.cap,
@@ -181,18 +166,15 @@ const reviseScheme = async function  (req,res,db){
     bellychain : haswear.bellychain,
     ringa : haswear.ringa,
     ringb : haswear.ringb,
-  }).catch((err) => {
+  }).catch(err => {
     state = false;
-    console.log('haswear',err)
+    console.log('haswear',err);
   })
   await db('scheme_enchanting')
-  .where({
-    id:id,
-    no:no
-  })
+  .where({id,no})
   .update({
-    id : id,
-    no : no,
+    id,
+    no,
     weapon : enchanting.weapon,
     hiddenweapon : enchanting.hiddenweapon,
     cap : enchanting.cap,
@@ -205,27 +187,24 @@ const reviseScheme = async function  (req,res,db){
     bellychain : enchanting.bellychain,
     ringa : enchanting.ringa,
     ringb : enchanting.ringb,
-  }).catch((err) => {
+  }).catch(err => {
     state = false;
-    console.log('enchanting',err)
+    console.log('enchanting',err);
   })
   await db('scheme_suiteffect')
-  .where({
-    id:id,
-    no:no
-  })
+  .where({id,no})
   .update({
-    id : id,
-    no : no,
+    id,
+    no,
     JJC2 : suiteffect.JJC2,
     JJC4 : suiteffect.JJC4,
     戰階2 : suiteffect.戰階2,
     戰階4 : suiteffect.戰階4,
     飾品2 : suiteffect.飾品2,
     飾品3 : suiteffect.飾品3
-  }).catch((err) => {
+  }).catch(err => {
     state = false;
-    console.log('suiteffect',err)
+    console.log('suiteffect',err);
   })
   if(state){
     res.json('sucess');
@@ -234,42 +213,30 @@ const reviseScheme = async function  (req,res,db){
   }
 }
 
-const deleteScheme = (req,res,db) => {
-  const {id,no} = req.query;
+const deleteScheme = (req, res, db) => {
+  const {id, no} = req.query;
   db('scheme_base')
-  .where({
-    id : id,
-    no : no
-  })
+  .where({id,no})
   .del()
-  .catch((err) => {
+  .catch(err =>{
     console.log('base',err);
   })
   db('scheme_haswear')
-  .where({
-    id : id,
-    no : no
-  })
+  .where({id,no})
   .del()
-  .catch((err) => {
+  .catch(err =>{
     console.log('haswear',err);
   })
   db('scheme_enchanting')
-  .where({
-    id : id,
-    no : no
-  })
+  .where({id,no})
   .del()
-  .catch((err) => {
+  .catch(err =>{
     console.log('enchanting',err);
   })
   db('scheme_suiteffect')
-  .where({
-    id : id,
-    no : no
-  })
+  .where({id,no})
   .del()
-  .catch((err) => {
+  .catch(err =>{
     console.log('suiteffect',err);
   })
   res.json('work');
@@ -277,8 +244,8 @@ const deleteScheme = (req,res,db) => {
 
 
 module.exports={
-  loadSchemeDetail:loadSchemeDetail,
-  saveScheme:saveScheme,
-  reviseScheme:reviseScheme,
-  deleteScheme:deleteScheme
+  loadSchemeDetail,
+  saveScheme,
+  reviseScheme,
+  deleteScheme
 }
