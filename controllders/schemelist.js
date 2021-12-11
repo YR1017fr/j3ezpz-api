@@ -4,7 +4,7 @@ const getSchmemlist = (req, res, db) =>{
     .then(data => {
         res.json(data);
     })
-    .catch(err=>{
+    .catch(err => {
         console.log(err);
     })
 }
